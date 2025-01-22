@@ -1,0 +1,26 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpass
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.2
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_USER: user
+      PMA_PASSWORD: userpass
+    ports:
+      - "8081:80"
+
+volumes:
+  db_data:
